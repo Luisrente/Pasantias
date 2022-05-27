@@ -1,47 +1,30 @@
-from BD.connection import DAO
-from BD.connection1 import DAO1
+from atexit import register
+from connection import Connect
 import function 
+
+import mysql.connector as register
+
+register=Connect('localhost',8889,'root','root','Pasas1')
 
 
 def mainMenu():
-    continu=True
-    while(continu):
-        correctOption=False
-        while(not correctOption):
-            print("======  MAIN MENU  ======== ")
-            print("1.- Generate report Login")
-            print("2.- Generate report view")
-            print("3.- Generar  report curse")
-            print("4.- Close")
-            option = int(input("Select a option: "))
-            if option <1 or option>4:
-                print("Incorret option enter again...")
-            elif option == 4:
-                continu= False
-                print("Thank you")
-                break
-            else:
-                correctOption= True
-                executeOption(option)
+    user_loggedin()
+    #course_viewed()
 
-def executeOption(option):
-    dao= DAO()
-    dao1=DAO1()
 
-    if option == 1:  
-        try:
-         log= dao.listLogs()
-         dao1.dropTable()
-         dao1.createTable()
-         function.list(log)
-        except:
-            print("Error report")
-    elif option == 2:
-        dao1.insertLog()
-        print("fmfmm")
-    else:
-        print("Incorret Option")
+def user_loggedin():
+    try:
+        loggedin=Connect('localhost',8889,'root','root','Pasantia')
+        resul=function.listCourse_viewed(loggedin)
+        function.insertUser_loggedin(register,resul)
+    except:
+        print("Error user_loggedin")
 
+
+def course_viewed():
+    course_viewed=Connect('localhost',8889,'root','root','Pasas1')
+    resul=function.listCourse_viewed(course_viewed)
+    function.insertCourse_viewed(register,resul)
 
 mainMenu()
 
