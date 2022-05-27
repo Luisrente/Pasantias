@@ -1,0 +1,17 @@
+{
+    "LOG":{
+                    "USER":"root"
+                  , "PASS":"root"
+                  , "HOST":"localhost"
+                  , "DATABASE":"Pasantias"
+                  , "PORT": 8889
+             }
+
+    ,"REGISTER":{
+                    "USER":"root"
+                  , "PASS":"root"
+                  , "HOST":"localhost"
+                  , "DATABASE":"Pasas1"
+                  , "PORT": 8889
+             }
+}

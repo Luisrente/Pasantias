@@ -1,66 +1,40 @@
 
-from connection import Connect
-from mysql.connector import Error
+
+class Function():
+
+    conexion= None
 
 
-def listCourse_viewed(con):
-    if ( con.conexion.is_connected()):
-        try:           
-            log=con.conexion.cursor()
-            log.execute("SELECT `component`,`userid`FROM `mdl_logstore_standard_log` WHERE `crud`='c';")
-            resultados= log.fetchall()
-            return resultados
-        except Error as ex:
-            print("Error listCourse_viewed: {0}".format(ex)) 
+    def __init__(self, conexion,conexion1):
+        self.conexion= conexion
+        self.conexion1= conexion1
 
 
-def truncateCourse_viewed (con):
-        if con.conexion.is_connected():
-            try:
-                log=con.conexion.cursor()
-                log.execute("TRUNCATE TABLE WWW")
-            except Error as ex:
-                print("Error truncateCourse_viewed: {0}".format(ex))
+    def insertCourse_viewed(self):
+        sql="SELECT `id`,`eventname`,`component`,`action`,`crud`,`userid`,`courseid`,from_unixtime(timecreated) AS 'Date' FROM `mdl_logstore_standard_log` WHERE `crud`='c';"
+        resul=self.conexion.listt(sql)
+        sql1="TRUNCATE TABLE Course_viewed"
+        self.conexion1.truncate(sql1)
+        sql2="""INSERT INTO `Course_viewed` (`id`, `idevent`, `eventname`, `component`, `action`, `crud`, `userid`, `courseid`, `Date`) VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s)"""
+        self.conexion1.insert(sql2,resul)
+
+    def insertUser_loggedin(self):
+        sql="SELECT `id`,`eventname`,`component`,`action`,`crud`,`userid`,`courseid`,from_unixtime(timecreated) AS 'Date' FROM `mdl_logstore_standard_log` WHERE `crud`='c';"
+        resul=self.conexion.listt(sql)
+        sql1="TRUNCATE TABLE User_loggedin"
+        self.conexion1.truncate(sql1)
+        sql2="""INSERT INTO `User_loggedin` (`id`, `idevent`, `eventname`, `component`, `action`, `crud`, `userid`, `courseid`, `Date`) VALUES (NULL, %s, %s, %s, %s, %s, %s, %s, %s)"""
+        self.conexion1.insert(sql2,resul)
+
+         
 
 
-def insertCourse_viewed(con,resul):
-    truncateCourse_viewed(con)
-    for insert in resul:
-        if con.conexion.is_connected():
-            try:
-                log=con.conexion.cursor()
-                sql="INSERT INTO `WWW` (`Id`, `core`, `dd`) VALUES (NULL, {0}, {1});"
-                log.execute(sql.format(insert[0],insert[1]))
-                con.conexion.commit()
-            except Error as ex:
-                print("Error insertCourse_viewed: {0}".format(ex)) 
 
 
-def listuser_loggedin(con):
-    if ( con.conexion.is_connected()):
-        try:           
-            log=con.conexion.cursor()
-            log.execute("SELECT `component`,`userid`FROM `mdl_logstore_standard_log` WHERE `crud`='c';")
-            resultados= log.fetchall()
-            return resultados
-        except Error as ex:
-            print("Error al intentar la conexion lis: {0}".format(ex)) 
 
-def truncateUser_loggedin (con):
-        if con.conexion.is_connected():
-            try:
-                log=con.conexion.cursor()
-                log.execute("TRUNCATE TABLE WWW")
-            except Error as ex:
-                print("Error User_loggedin: {0}".format(ex))
 
-def insertUser_loggedin(con,resul):
-    conte=Connect()
-    if conte.conexion.is_connected():
-        try:
-            log=conte.conexion.cursor()
-            sql="INSERT INTO `WWW` (`Id`, `core`, `dd`) VALUES (NULL, {0}, {1});"
-            log.execute(sql.format(resul[0],resul[1]))
-            conte.conexion.commit()
-        except Error as ex:
-            print("Error User_loggedin: {0}".format(ex)) 
+
+
+
+
+
