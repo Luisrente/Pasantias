@@ -33,7 +33,7 @@ class Cone( ):
         except mysql.connector.Error as ex: 
             print("Error durante la concexion: " ,ex)  
 
-    def listt (self,sql):
+    def select (self,sql):
             if self.conexion.is_connected():
                 try:
                     log=self.conexion.cursor()

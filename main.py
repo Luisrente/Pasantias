@@ -8,8 +8,8 @@ class main:
         ENTORNO1="REGISTER"
         with open('./config.json','r') as file:
             config = json.load(file)
-        self.conexion= Cone( USER='root',PASS= 'root', HOST= 'localhost' , DB= 'Pasantia', PORT= 8889)
-        self.conexion1= Cone( USER='root',PASS= 'root', HOST= 'localhost' , DB= 'Pasas1', PORT= 8889)
+        self.conexion= Cone( USER='root',PASS= 'root', HOST= 'localhost' , DB= 'Pasas1', PORT= 8889)
+        self.conexion1= Cone( USER='root',PASS= 'root', HOST= 'localhost' , DB= 'registros', PORT= 8889)
         #conexion2= Connect( USER = config[ENTORNO]['PASS'], PASS = config[ENTORNO]['PASS'], HOST = config[ENTORNO]['HOST'], DB = config[ENTORNO]['DATABASE'], PORT = config[ENTORNO]['PORT'])
         #conexion1= Connect(    USER= config[ENTORNO1]['USER']
         #                    , PASS= config[ENTORNO1]['PASS']
