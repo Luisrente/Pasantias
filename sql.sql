@@ -34,7 +34,6 @@ mdl_logstore_standard_log.objecttable,
 mdl_logstore_standard_log.objectid,
 mdl_logstore_standard_log.crud,
 mdl_logstore_standard_log.edulevel,
-mdl_logstore_standard_log.userid,
 mdl_logstore_standard_log.courseid,
 mdl_logstore_standard_log.other,
 DATE_FORMAT(FROM_UNIXTIME(mdl_logstore_standard_log.timecreated),'%Y-%m-%d %H:%i') AS timecreated,
@@ -53,6 +52,8 @@ INNER JOIN mdl_user ON  mdl_logstore_standard_log.userid= mdl_user.id
 WHERE eventname='\\core\\event\\user_loggedin'
 
 
+!Consulta final course Course_viewed
+
 SELECT 
 mdl_logstore_standard_log.id,
 mdl_logstore_standard_log.eventname,
@@ -62,37 +63,34 @@ mdl_logstore_standard_log.objecttable,
 mdl_logstore_standard_log.objectid,
 mdl_logstore_standard_log.crud,
 mdl_logstore_standard_log.edulevel,
-mdl_logstore_standard_log.userid,
-mdl_logstore_standard_log.courseid,
+mdl_logstore_standard_log.ip,
 mdl_logstore_standard_log.other,
 DATE_FORMAT(FROM_UNIXTIME(mdl_logstore_standard_log.timecreated),'%Y-%m-%d %H:%i') AS timecreated,
 mdl_logstore_standard_log.origin,
-mdl_logstore_standard_log.ip,
+mdl_logstore_standard_log.userid,
 
-mdl_user.id,
-mdl_user.username,
-mdl_user.idnumber,
-mdl_user.firstname,
-mdl_user.lastname,
-mdl_user.email,
+Pasas1.mdl_user.username,
+Pasas1.mdl_user.idnumber,
+Pasas1.mdl_user.firstname,
+Pasas1.mdl_user.lastname,
+Pasas1.mdl_user.email,
 
 
-mdl_course.id,
-mdl_course.category,
-mdl_course.fullname ,
-mdl_course.shortname ,
-mdl_course.idnumber,
-mdl_course.format,
-mdl_course.startdate ,
-mdl_course.enddate ,
-
-mdl_course_categories.id,
-mdl_course_categories.name,
-mdl_course_categories.idnumber,
-mdl_course_categories.parent,
-mdl_course_categories.coursecount,
-mdl_course_categories.depth,
-mdl_course_categories.path
+Pasas1.mdl_course.id,
+Pasas1.mdl_course.fullname ,
+Pasas1.mdl_course.shortname ,
+Pasas1.mdl_course.idnumber,
+Pasas1.mdl_course.startdate ,
+Pasas1.mdl_course.enddate ,
+Pasas1.mdl_course.category,
+Pasas1.
+Pasas1.
+Pasas1.mdl_course_categories.name,
+Pasas1.mdl_course_categories.idnumber,
+Pasas1.mdl_course_categories.parent,
+Pasas1.mdl_course_categories.coursecount,
+Pasas1.mdl_course_categories.depth,
+Pasas1.mdl_course_categories.path
 
 
 FROM mdl_logstore_standard_log  
@@ -100,3 +98,55 @@ INNER JOIN mdl_course ON  mdl_logstore_standard_log.courseid= mdl_course.id
 INNER JOIN mdl_course_categories ON  mdl_course.category= mdl_course_categories.id
 INNER JOIN mdl_user ON  mdl_logstore_standard_log.userid= mdl_user.id
 WHERE eventname='\\core\\event\\course_viewed'
+
+
+
+
+!Consulta final user_loggedin
+
+
+SELECT
+
+Pasas1.mdl_logstore_standard_log.id,
+Pasas1.mdl_logstore_standard_log.eventname,
+Pasas1.mdl_logstore_standard_log.component,
+Pasas1.mdl_logstore_standard_log.action,
+Pasas1.mdl_logstore_standard_log.objecttable,
+Pasas1.mdl_logstore_standard_log.objectid,
+Pasas1.mdl_logstore_standard_log.crud,
+Pasas1.mdl_logstore_standard_log.edulevel,
+Pasas1.mdl_logstore_standard_log.ip,
+Pasas1.mdl_logstore_standard_log.other,
+DATE_FORMAT(FROM_UNIXTIME(Pasas1.mdl_logstore_standard_log.timecreated),'%Y-%m-%d %H:%i') AS timecreated,
+Pasas1.mdl_logstore_standard_log.origin,
+Pasas1.mdl_logstore_standard_log.userid,
+
+Pasas1.mdl_user.username,
+Pasas1.mdl_user.idnumber,
+Pasas1.mdl_user.firstname,
+Pasas1.mdl_user.lastname,
+Pasas1.mdl_user.email,
+
+Pasas1.mdl_course.id,
+Pasas1.mdl_course.fullname ,
+Pasas1.mdl_course.shortname ,
+Pasas1.mdl_course.idnumber,
+Pasas1.mdl_course.startdate ,
+Pasas1.mdl_course.enddate ,
+Pasas1.mdl_course.category,
+
+
+Pasas1.mdl_course_categories.name,
+Pasas1.mdl_course_categories.idnumber,
+Pasas1.mdl_course_categories.parent,
+Pasas1.mdl_course_categories.coursecount,
+Pasas1.mdl_course_categories.depth,
+Pasas1.mdl_course_categories.path
+      
+      FROM Pasas1.mdl_logstore_standard_log 
+      LEFT JOIN Pasas1.mdl_user ON  Pasas1.mdl_logstore_standard_log.userid= Pasas1.mdl_user.id 
+      LEFT JOIN registros.matricula ON Pasas1.mdl_user.idnumber=registros.matricula.idnumber
+      LEFT JOIN Pasas1.mdl_course ON  Pasas1.mdl_course.idnumber= registros.matricula.courseid
+      LEFT JOIN Pasas1.mdl_course_categories ON  Pasas1.mdl_course.category=      Pasas1.mdl_course_categories.id 
+
+WHERE Pasas1.mdl_logstore_standard_log.eventname='\\core\\event\\user_loggedin'
