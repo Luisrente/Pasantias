@@ -14,8 +14,8 @@ class main:
     def execute(self):
         print('Loaing...')
         function=Function(conexion=self.conexion,conexion1=self.conexion1)
-        function.insertCourse_viewed()
-        #function.insertUser_loggedin()
+        #function.insertCourse_viewed()
+        function.insertUser_loggedin()
 
 main1=main()
 main1.execute()
